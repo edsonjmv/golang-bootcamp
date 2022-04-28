@@ -137,6 +137,8 @@ func divide(x int, y int) int {
 
 - Suppose you are building a web server that needs a DB that can do a set of simple operations. You know that the requirements of what DB to use will change. You also now that it will be easier for testing purposes to not have to setup something like MySQL. How would you solve this problem using the feature that Go provide?
 
+We can solve this problem with in-memory DB that is a persistence tool that allow us to store data in memory by responding to basic CRUD operations.
+
 - How would you build a simple function that can receive _any_ type of argument and prints the if that argument is of a primitive type. Limit to just `int`, `string`, `float` and `bool`.
 
 ```golang
