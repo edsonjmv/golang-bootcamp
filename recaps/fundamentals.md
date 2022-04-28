@@ -33,8 +33,41 @@ Yes. A pointer will hold the memory address of a value so arguments are passed b
 Arrays have a fixed size and all values share the same type, while slices are dynamically allocated
 
 - Say you have a map: `map[string]int`, how would do a lookup and check to see if the map holds the value of the key you were looking for?
+
+```golang
+package main
+
+import "fmt"
+
+func main() {
+	numbers := map[string]int{
+		"one":   1,
+		"two":   2,
+		"three": 3,
+		"four":  4,
+		"five":  5,
+		"six":   6,
+		"seven": 7,
+	}
+
+	luckyNumber := "seven"
+
+	if numbers[luckyNumber] != 0 {
+		fmt.Println(luckyNumber, "is a key in the map and has a value of:", numbers[luckyNumber])
+	} else {
+		fmt.Println(luckyNumber, "is not a key in the map")
+	}
+}
+```
+
 - How does Go structure programs? What is the difference between a library and a program that executes?
+
+Programs are structured using packages. The main function of a package should be in package main and a library does not have a package main
+
 - How do make a function or a type public? And how do you make it private?
+
+To make a function public you make the first letter of the name to be a capital letter. If the first letter is lowercase it becomes private (package-level)
+
 - You are going to be building a simple calculator with 4 basic operations(add, subtract, multiply and divide). First build a library that provides those 4 methods. After that implement a program that reads from the command line the operation to be done and prints the result(by calling the library you implemented previously). The operation should be read however you'd like, but for simplicity sake limit yourself to 2 operands and 1 operation character. Something like `./program 1 + 2`.
 - Suppose you are building a web server that needs a DB that can do a set of simple operations. You know that the requirements of what DB to use will change. You also now that it will be easier for testing purposes to not have to setup something like MySQL. How would you solve this problem using the feature that Go provide?
 - How would you build a simple function that can receive _any_ type of argument and prints the if that argument is of a primitive type. Limit to just `int`, `string`, `float` and `bool`.
