@@ -136,7 +136,44 @@ func divide(x int, y int) int {
 ```
 
 - Suppose you are building a web server that needs a DB that can do a set of simple operations. You know that the requirements of what DB to use will change. You also now that it will be easier for testing purposes to not have to setup something like MySQL. How would you solve this problem using the feature that Go provide?
+
 - How would you build a simple function that can receive _any_ type of argument and prints the if that argument is of a primitive type. Limit to just `int`, `string`, `float` and `bool`.
+
+```golang
+package main
+
+import "fmt"
+
+func main() {
+	isPrimitive(2)
+	isPrimitive("hello")
+	isPrimitive(2.4)
+	isPrimitive(false)
+
+	nums := []int{1, 2, 3, 4}
+	isPrimitive(nums)
+}
+
+func isPrimitive(v interface{}) {
+	isPrimitive := false
+	switch v.(type) {
+	case int:
+		isPrimitive = true
+	case string:
+		isPrimitive = true
+	case float64:
+		isPrimitive = true
+	case bool:
+		isPrimitive = true
+	}
+	if isPrimitive {
+		fmt.Printf("%d is primitive\n", v)
+	} else {
+		fmt.Printf("%d is NOT primitive\n", v)
+	}
+}
+```
+
 - How are errors defined in Go?
 - Ok, you know how errors are defined in Go now. Time to build a simple `errors` package that allows you to build errors that specify what kind of error is it, limit yourself to 3 kinds: `Internal`, `ThirdParty` and `Other`. Then provide a function in that package for users to check if the error they have is of the kind they care about. **NOTE**: remember not to break with the way errors are defined in Go, take advantage of that.
 - What do you use to make two functions concurrent?
