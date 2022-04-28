@@ -189,3 +189,30 @@ You use goroutines that are lightweight threads managed by the Go runtime.
 You use channels to communicate and synchronize between different goroutines. Channels are pipes that connect concurrent goroutines. You can send values from one goroutine and receive them from another
 
 - Write a program with three functions. One will send stuff(whatever you'd like) over a channel every one second and one will receive it and print it. The third function will tell the other two functions to stop and return(it could be the main func) after 5 seconds. **NOTE**: the program can not end until the sender and receiver have returned.
+
+```golang
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+	channel := make(chan int)
+
+	go func() {
+		for i := 0; i < 5; i++ {
+			time.Sleep(1 * time.Second)
+			channel <- i
+		}
+	}()
+
+	for i := 0; i < 5; i++ {
+		select {
+		case msg := <-channel:
+			fmt.Println("received", msg)
+		}
+	}
+}
+```
