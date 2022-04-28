@@ -69,6 +69,72 @@ Programs are structured using packages. The main function of a package should be
 To make a function public you make the first letter of the name to be a capital letter. If the first letter is lowercase it becomes private (package-level)
 
 - You are going to be building a simple calculator with 4 basic operations(add, subtract, multiply and divide). First build a library that provides those 4 methods. After that implement a program that reads from the command line the operation to be done and prints the result(by calling the library you implemented previously). The operation should be read however you'd like, but for simplicity sake limit yourself to 2 operands and 1 operation character. Something like `./program 1 + 2`.
+
+```golang
+package main
+
+import "fmt"
+
+func main() {
+	var operation string
+	var n1, n2 int
+
+	fmt.Print("Enter first number: ")
+	fmt.Scanln(&n1)
+	fmt.Print("Enter second number: ")
+	fmt.Scanln(&n2)
+	fmt.Print("Enter a operation (add, subtract, multiply, divide):")
+	fmt.Scanln(&operation)
+
+	Calculate(operation, n1, n2)
+}
+```
+
+```golang
+package main
+
+import "fmt"
+
+func Calculate(operation string, x int, y int) {
+	var operator string
+	result := 0
+	switch operation {
+	case "add":
+		operator = "+"
+		result = add(x, y)
+	case "subtract":
+		operator = "-"
+		result = subtract(x, y)
+	case "multiply":
+		operator = "*"
+		result = multiply(x, y)
+	case "divide":
+		operator = "/"
+		result = divide(x, y)
+	default:
+		fmt.Println("Invalid Operation")
+	}
+
+	fmt.Printf("%d %s %d = %d", x, operator, y, result)
+}
+
+func add(x int, y int) int {
+	return x + y
+}
+
+func subtract(x int, y int) int {
+	return x - y
+}
+
+func multiply(x int, y int) int {
+	return x * y
+}
+
+func divide(x int, y int) int {
+	return x / y
+}
+```
+
 - Suppose you are building a web server that needs a DB that can do a set of simple operations. You know that the requirements of what DB to use will change. You also now that it will be easier for testing purposes to not have to setup something like MySQL. How would you solve this problem using the feature that Go provide?
 - How would you build a simple function that can receive _any_ type of argument and prints the if that argument is of a primitive type. Limit to just `int`, `string`, `float` and `bool`.
 - How are errors defined in Go?
