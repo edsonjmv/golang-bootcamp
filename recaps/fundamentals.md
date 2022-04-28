@@ -175,7 +175,17 @@ func isPrimitive(v interface{}) {
 ```
 
 - How are errors defined in Go?
+
+Errors are treated as simple values. Go has the error type that is an interface with a single method. When you build a function you should return whatever you want to return and an error, if nothing went wrong simply return nil, otherwise return an error that expresses the problem
+
 - Ok, you know how errors are defined in Go now. Time to build a simple `errors` package that allows you to build errors that specify what kind of error is it, limit yourself to 3 kinds: `Internal`, `ThirdParty` and `Other`. Then provide a function in that package for users to check if the error they have is of the kind they care about. **NOTE**: remember not to break with the way errors are defined in Go, take advantage of that.
+
 - What do you use to make two functions concurrent?
+
+You use goroutines that are lightweight threads managed by the Go runtime.
+
 - How would you synchronize two concurrent functions?
+
+You use channels to communicate and synchronize between different goroutines. Channels are pipes that connect concurrent goroutines. You can send values from one goroutine and receive them from another
+
 - Write a program with three functions. One will send stuff(whatever you'd like) over a channel every one second and one will receive it and print it. The third function will tell the other two functions to stop and return(it could be the main func) after 5 seconds. **NOTE**: the program can not end until the sender and receiver have returned.
