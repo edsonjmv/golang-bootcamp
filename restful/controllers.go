@@ -39,6 +39,7 @@ func AddItem(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 
 	id := params["id"]
+	// TODO item must be received in the request body
 	item := params["item"]
 
 	oid, _ := uuid.Parse(id)
@@ -55,6 +56,7 @@ func RemoveItem(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 
 	id := params["id"]
+	// TODO item must be received in the request body
 	item := params["item"]
 
 	oid, _ := uuid.Parse(id)

@@ -20,7 +20,9 @@ func main() {
 	router.HandleFunc("/orders", GetOrders).Methods("GET")
 	router.HandleFunc("/orders", CreateOrder).Methods("POST")
 	router.HandleFunc("/orders/{id}", GetOrder).Methods("GET")
+	// TODO item must be received in the request body
 	router.HandleFunc("/orders/add/{id}/{item}", AddItem).Methods("PUT")
+	// TODO item must be received in the request body
 	router.HandleFunc("/orders/remove/{id}/{item}", RemoveItem).Methods("PUT")
 	router.HandleFunc("/orders/clear/{id}", ClearOrder).Methods("PUT")
 
