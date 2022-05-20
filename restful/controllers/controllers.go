@@ -1,8 +1,9 @@
-package main
+package controllers
 
 import (
 	"encoding/json"
 	"net/http"
+	"restful/global"
 
 	"github.com/google/uuid"
 	"github.com/gorilla/mux"
@@ -10,13 +11,13 @@ import (
 
 func GetOrders(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(db)
+	json.NewEncoder(w).Encode(global.Db)
 }
 
 func CreateOrder(w http.ResponseWriter, r *http.Request) {
-	o := make(order)
+	o := make(global.Order)
 	id := uuid.New()
-	db.update(id, o)
+	global.Db.Update(id, o)
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]string{"id": id.String()})
 }
@@ -29,7 +30,7 @@ func GetOrder(w http.ResponseWriter, r *http.Request) {
 
 	oid, _ := uuid.Parse(id)
 
-	o := db[oid]
+	o := global.Db[oid]
 
 	json.NewEncoder(w).Encode(o)
 }
@@ -44,9 +45,9 @@ func AddItem(w http.ResponseWriter, r *http.Request) {
 
 	oid, _ := uuid.Parse(id)
 
-	o := db[oid]
+	o := global.Db[oid]
 
-	o.addItem(item)
+	o.AddItem(item)
 
 	json.NewEncoder(w).Encode(o)
 }
@@ -61,9 +62,9 @@ func RemoveItem(w http.ResponseWriter, r *http.Request) {
 
 	oid, _ := uuid.Parse(id)
 
-	o := db[oid]
+	o := global.Db[oid]
 
-	o.removeItem(item)
+	o.RemoveItem(item)
 
 	json.NewEncoder(w).Encode(o)
 }
@@ -76,9 +77,9 @@ func ClearOrder(w http.ResponseWriter, r *http.Request) {
 
 	oid, _ := uuid.Parse(id)
 
-	o := db[oid]
+	o := global.Db[oid]
 
-	o.clearOrder()
+	o.ClearOrder()
 
 	json.NewEncoder(w).Encode(o)
 }

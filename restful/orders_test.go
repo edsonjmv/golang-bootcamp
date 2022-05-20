@@ -1,15 +1,16 @@
 package main
 
 import (
+	"restful/global"
 	"testing"
 )
 
 func TestAddItem(t *testing.T) {
-	o := make(order)
+	o := make(global.Order)
 
-	o.addItem("Bananas")
-	o.addItem("Apple")
-	o.addItem("Pear")
+	o.AddItem("Bananas")
+	o.AddItem("Apple")
+	o.AddItem("Pear")
 
 	if len(o) != 3 {
 		t.Errorf("Expected order length of 3, but got %v", len(o))
@@ -29,17 +30,17 @@ func TestAddItem(t *testing.T) {
 }
 
 func TestRemoveItem(t *testing.T) {
-	o := make(order)
+	o := make(global.Order)
 
-	o.addItem("Bananas")
-	o.addItem("Apple")
-	o.addItem("Pear")
+	o.AddItem("Bananas")
+	o.AddItem("Apple")
+	o.AddItem("Pear")
 
 	if o["Apple"] == 0 {
 		t.Errorf("Item expected to be in order")
 	}
 
-	o.removeItem("Apple")
+	o.RemoveItem("Apple")
 
 	if o["Apple"] != 0 {
 		t.Errorf("Item expected to be removed from order")
@@ -47,17 +48,17 @@ func TestRemoveItem(t *testing.T) {
 }
 
 func TestClear(t *testing.T) {
-	o := make(order)
+	o := make(global.Order)
 
-	o.addItem("Bananas")
-	o.addItem("Apple")
-	o.addItem("Pear")
+	o.AddItem("Bananas")
+	o.AddItem("Apple")
+	o.AddItem("Pear")
 
 	if len(o) != 3 {
 		t.Errorf("Expected order length of 3, but got %v", len(o))
 	}
 
-	o.clearOrder()
+	o.ClearOrder()
 
 	if len(o) != 0 {
 		t.Errorf("Expected order length of 0, but got %v", len(o))
