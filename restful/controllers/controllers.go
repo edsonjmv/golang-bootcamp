@@ -9,6 +9,10 @@ import (
 	"github.com/gorilla/mux"
 )
 
+type Body struct {
+	Item string
+}
+
 func GetOrders(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(global.Db)
@@ -40,14 +44,22 @@ func AddItem(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 
 	id := params["id"]
-	// TODO item must be received in the request body
-	item := params["item"]
+
+	decoder := json.NewDecoder(r.Body)
+
+	var b Body
+
+	err := decoder.Decode(&b)
+
+	if err != nil {
+		panic(err)
+	}
 
 	oid, _ := uuid.Parse(id)
 
 	o := global.Db[oid]
 
-	o.AddItem(item)
+	o.AddItem(b.Item)
 
 	json.NewEncoder(w).Encode(o)
 }
@@ -57,14 +69,22 @@ func RemoveItem(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 
 	id := params["id"]
-	// TODO item must be received in the request body
-	item := params["item"]
+
+	decoder := json.NewDecoder(r.Body)
+
+	var b Body
+
+	err := decoder.Decode(&b)
+
+	if err != nil {
+		panic(err)
+	}
 
 	oid, _ := uuid.Parse(id)
 
 	o := global.Db[oid]
 
-	o.RemoveItem(item)
+	o.RemoveItem(b.Item)
 
 	json.NewEncoder(w).Encode(o)
 }
